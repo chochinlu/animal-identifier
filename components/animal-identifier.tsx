@@ -29,15 +29,16 @@ export function AnimalIdentifier() {
             <UploadIcon className="mr-2 h-5 w-5" />
             Upload Image
           </Button>
-          <div className="w-full aspect-video bg-muted rounded-lg overflow-hidden">
-            <img
-              src="/placeholder.svg"
-              alt="Animal Preview"
-              width={800}
-              height={450}
-              className="w-full h-full object-cover"
-              style={{ aspectRatio: "800/450", objectFit: "cover" }}
-            />
+          <div className="w-full aspect-video bg-muted rounded-lg overflow-hidden flex items-center justify-center">
+            <div className="w-[100px] h-[100px]">
+              <img
+                src="/placeholder.svg"
+                alt="Animal Preview"
+                width={100}
+                height={100}
+                className="w-full h-full object-contain"
+              />
+            </div>
           </div>
           <Button size="lg" className="w-full">
             Recognize Animal
