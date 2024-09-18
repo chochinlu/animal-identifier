@@ -133,7 +133,7 @@ export function AnimalIdentifier() {
           </Button>
           {recognitionResult && (
             <div className="w-full space-y-4">
-              <div className="text-2xl font-bold">{recognitionResult.animalName}</div>
+              <div className="text-2xl font-bold">{recognitionResult.animalName.toUpperCase()}</div>
               <div>
                 {recognitionResult.confidence >= 0.5 && recognitionResult.confidence <= 1
                   ? `High similarity: ${recognitionResult.confidence}`
