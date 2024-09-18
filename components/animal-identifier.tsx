@@ -26,6 +26,7 @@ interface RecognitionResult {
   animalName: string;
   confidence: number;
   description: string;
+  wikipediaUrl: string;
   isDangerous: boolean;
 }
 
@@ -88,6 +89,10 @@ export function AnimalIdentifier() {
     <div className="flex flex-col items-center h-screen bg-background">
       <div className="max-w-3xl w-full px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center space-y-6">
+          <h1 className="text-2xl font-bold mt-8">Animal Identifier</h1>
+          <p className="text-center text-muted-foreground mb-4 text-sm">
+            Identify animals in the image
+          </p>
           <input
             type="file"
             accept="image/jpeg,image/png"
@@ -143,9 +148,15 @@ export function AnimalIdentifier() {
               <p className="text-muted-foreground">
                 {recognitionResult.description}
               </p>
-              <Link href="#" target="_blank" className="text-primary underline" prefetch={false}>
-                Learn more on Wikipedia
-              </Link>
+              <div className="mt-2">
+                {recognitionResult.wikipediaUrl !== "No URL available" ? (
+                  <Link href={recognitionResult.wikipediaUrl} target="_blank" className="text-primary underline" prefetch={false}>
+                    Learn more on Wikipedia
+                  </Link>
+                ) : (
+                  <span className="text-muted-foreground">No related URL available</span>
+                )}
+              </div>
             </div>
           )}
         </div>
