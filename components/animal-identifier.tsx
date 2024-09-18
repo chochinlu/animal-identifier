@@ -40,6 +40,11 @@ export function AnimalIdentifier() {
     }
   }
 
+  const handleRecognize = () => {
+    // Add your recognition logic here
+    console.log("Recognizing animal...")
+  }
+
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-background">
       <div className="max-w-3xl w-full px-4 sm:px-6 lg:px-8">
@@ -74,7 +79,12 @@ export function AnimalIdentifier() {
               </div>
             )}
           </div>
-          <Button size="lg" className="w-full">
+          <Button
+            size="lg"
+            className="w-full"
+            onClick={handleRecognize}
+            disabled={!selectedImage}
+          >
             Recognize Animal
           </Button>
           <div className="w-full text-center text-muted-foreground">Recognizing...</div>
