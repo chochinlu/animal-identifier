@@ -149,12 +149,10 @@ export function AnimalIdentifier() {
                 {recognitionResult.description}
               </p>
               <div className="mt-2">
-                {recognitionResult.wikipediaUrl !== "No URL available" ? (
+                {recognitionResult.wikipediaUrl !== "No URL available" && (
                   <Link href={recognitionResult.wikipediaUrl} target="_blank" className="text-primary underline" prefetch={false}>
                     Learn more on Wikipedia
                   </Link>
-                ) : (
-                  <span className="text-muted-foreground">No related URL available</span>
                 )}
               </div>
             </div>
