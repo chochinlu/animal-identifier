@@ -1,8 +1,31 @@
+# Animal Identifier
+
+Animal Identifier is a web application that allows users to upload images of animals and receive identification results using AI technology.
+
+## Features
+
+1. **Image Upload**: Users can upload images of animals in JPEG or PNG format.
+
+2. **Animal Recognition**: The application uses AI to identify the animal in the uploaded image.
+
+3. **Result Display**: After processing, the app shows:
+   - The identified animal's name
+   - A description of the animal
+   - A warning if the animal is considered dangerous
+
+4. **User-Friendly Interface**: The application provides a simple and intuitive interface for easy use.
+
+5. **Real-time Feedback**: A loading animation is displayed during the recognition process to keep users informed.
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
 
 ## Getting Started
 
-First, run the development server:
+Make sure you have run the backend server first. Please refer to the [backend README](../backend/README.md) for more details.
+
+Then, run the development server:
 
 ```bash
 npm run dev

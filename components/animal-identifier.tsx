@@ -26,6 +26,7 @@ interface RecognitionResult {
   animalName: string;
   confidence: number;
   description: string;
+  wikipediaUrl: string;
   isDangerous: boolean;
 }
 
@@ -64,7 +65,7 @@ export function AnimalIdentifier() {
       const blob = await response.blob();
       formData.append('image', blob, 'image.jpg');
 
-      const recognitionResponse = await fetch('/api/recognize-animal', {
+      const recognitionResponse = await fetch('http://localhost:8000/recognize-animal', {
         method: 'POST',
         body: formData,
       });
@@ -88,6 +89,10 @@ export function AnimalIdentifier() {
     <div className="flex flex-col items-center h-screen bg-background">
       <div className="max-w-3xl w-full px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center space-y-6">
+          <h1 className="text-2xl font-bold mt-8">Animal Identifier</h1>
+          <p className="text-center text-muted-foreground mb-4 text-sm">
+            Identify animals in the image
+          </p>
           <input
             type="file"
             accept="image/jpeg,image/png"
@@ -126,24 +131,30 @@ export function AnimalIdentifier() {
           >
             {isRecognizing ? "Recognizing..." : "Recognize Animal"}
           </Button>
-          {isRecognizing && (
-            <div className="w-full text-center text-muted-foreground">Recognizing...</div>
-          )}
           {recognitionResult && (
             <div className="w-full space-y-4">
-              <div className="text-2xl font-bold">{recognitionResult.animalName}</div>
+              <div className="text-2xl font-bold">{recognitionResult.animalName.toUpperCase()}</div>
+              <div>
+                {recognitionResult.confidence >= 0.5 && recognitionResult.confidence <= 1
+                  ? `High similarity: ${recognitionResult.confidence}`
+                  : `Low similarity: ${recognitionResult.confidence}`}
+              </div>
               {recognitionResult.isDangerous && (
                 <div className="flex items-center space-x-2">
-                  <FileWarningIcon className="h-5 w-5 text-red-500" />
-                  <span>Dangerous</span>
+                  <FileWarningIcon className="h-5 w-5" style={{ color: 'red' }} />
+                  <span style={{ color: 'red', fontWeight: 'bold' }}>Dangerous</span>
                 </div>
               )}
               <p className="text-muted-foreground">
                 {recognitionResult.description}
               </p>
-              <Link href="#" target="_blank" className="text-primary underline" prefetch={false}>
-                Learn more on Wikipedia
-              </Link>
+              <div className="mt-2">
+                {recognitionResult.wikipediaUrl !== "No URL available" && (
+                  <Link href={recognitionResult.wikipediaUrl} target="_blank" className="text-primary underline" prefetch={false}>
+                    Learn more on Wikipedia
+                  </Link>
+                )}
+              </div>
             </div>
           )}
         </div>
