@@ -22,8 +22,17 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { useState, useRef } from "react"
 
+interface RecognitionResult {
+  animalName: string;
+  confidence: number;
+  description: string;
+  isDangerous: boolean;
+}
+
 export function AnimalIdentifier() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
+  const [recognitionResult, setRecognitionResult] = useState<RecognitionResult | null>(null)
+  const [isRecognizing, setIsRecognizing] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleUpload = () => {
@@ -40,13 +49,43 @@ export function AnimalIdentifier() {
     }
   }
 
-  const handleRecognize = () => {
-    // Add your recognition logic here
-    console.log("Recognizing animal...")
+  const handleRecognize = async () => {
+    if (!selectedImage) {
+      console.error('No image selected');
+      return;
+    }
+
+    setIsRecognizing(true);
+    setRecognitionResult(null);
+
+    try {
+      const formData = new FormData();
+      const response = await fetch(selectedImage);
+      const blob = await response.blob();
+      formData.append('image', blob, 'image.jpg');
+
+      const recognitionResponse = await fetch('/api/recognize-animal', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!recognitionResponse.ok) {
+        throw new Error('Recognition request failed');
+      }
+
+      const result = await recognitionResponse.json();
+      setRecognitionResult(result);
+      console.log("Recognition result:", result);
+    } catch (error) {
+      console.error("Error during recognition:", error);
+      // Handle error, e.g., display error message to user
+    } finally {
+      setIsRecognizing(false);
+    }
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-background">
+    <div className="flex flex-col items-center h-screen bg-background">
       <div className="max-w-3xl w-full px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center space-y-6">
           <input
@@ -83,25 +122,30 @@ export function AnimalIdentifier() {
             size="lg"
             className="w-full"
             onClick={handleRecognize}
-            disabled={!selectedImage}
+            disabled={!selectedImage || isRecognizing}
           >
-            Recognize Animal
+            {isRecognizing ? "Recognizing..." : "Recognize Animal"}
           </Button>
-          <div className="w-full text-center text-muted-foreground">Recognizing...</div>
-          <div className="w-full space-y-4">
-            <div className="text-2xl font-bold">Siberian Tiger</div>
-            <div className="flex items-center space-x-2">
-              <FileWarningIcon className="h-5 w-5 text-red-500" />
-              <span>Toxic</span>
+          {isRecognizing && (
+            <div className="w-full text-center text-muted-foreground">Recognizing...</div>
+          )}
+          {recognitionResult && (
+            <div className="w-full space-y-4">
+              <div className="text-2xl font-bold">{recognitionResult.animalName}</div>
+              {recognitionResult.isDangerous && (
+                <div className="flex items-center space-x-2">
+                  <FileWarningIcon className="h-5 w-5 text-red-500" />
+                  <span>Dangerous</span>
+                </div>
+              )}
+              <p className="text-muted-foreground">
+                {recognitionResult.description}
+              </p>
+              <Link href="#" target="_blank" className="text-primary underline" prefetch={false}>
+                Learn more on Wikipedia
+              </Link>
             </div>
-            <p className="text-muted-foreground">
-              The Siberian tiger is the largest living cat species and a member of the Panthera genus. It is the
-              national animal of Russia and is classified as Endangered by the IUCN.
-            </p>
-            <Link href="#" target="_blank" className="text-primary underline" prefetch={false}>
-              Learn more on Wikipedia
-            </Link>
-          </div>
+          )}
         </div>
       </div>
     </div>
