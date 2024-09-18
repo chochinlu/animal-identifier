@@ -23,7 +23,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-Make sure you have run the backend server first. Please refer to the [backend README](../backend/README.md) for more details.
+Make sure you have run the backend server first. Please refer to the [backend README](https://github.com/chochinlu/animal-identifier-backend/blob/main/readme.md) for more details.
 
 Then, run the development server:
 
