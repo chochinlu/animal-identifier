@@ -64,7 +64,7 @@ export function AnimalIdentifier() {
       const blob = await response.blob();
       formData.append('image', blob, 'image.jpg');
 
-      const recognitionResponse = await fetch('/api/recognize-animal', {
+      const recognitionResponse = await fetch('http://localhost:8000/recognize-animal', {
         method: 'POST',
         body: formData,
       });
@@ -126,16 +126,18 @@ export function AnimalIdentifier() {
           >
             {isRecognizing ? "Recognizing..." : "Recognize Animal"}
           </Button>
-          {isRecognizing && (
-            <div className="w-full text-center text-muted-foreground">Recognizing...</div>
-          )}
           {recognitionResult && (
             <div className="w-full space-y-4">
               <div className="text-2xl font-bold">{recognitionResult.animalName}</div>
+              <div>
+                {recognitionResult.confidence >= 0.5 && recognitionResult.confidence <= 1
+                  ? `High similarity: ${recognitionResult.confidence}`
+                  : `Low similarity: ${recognitionResult.confidence}`}
+              </div>
               {recognitionResult.isDangerous && (
                 <div className="flex items-center space-x-2">
-                  <FileWarningIcon className="h-5 w-5 text-red-500" />
-                  <span>Dangerous</span>
+                  <FileWarningIcon className="h-5 w-5" style={{ color: 'red' }} />
+                  <span style={{ color: 'red', fontWeight: 'bold' }}>Dangerous</span>
                 </div>
               )}
               <p className="text-muted-foreground">
