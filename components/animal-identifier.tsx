@@ -123,13 +123,26 @@ export function AnimalIdentifier() {
               </div>
             )}
           </div>
+          <style jsx>{`
+            @keyframes pulse {
+              0%, 100% { opacity: 1; }
+              50% { opacity: 0.5; }
+            }
+            .pulsing-text {
+              animation: pulse 1.5s ease-in-out infinite;
+            }
+          `}</style>
           <Button
             size="lg"
             className="w-full"
             onClick={handleRecognize}
             disabled={!selectedImage || isRecognizing}
           >
-            {isRecognizing ? "Recognizing..." : "Recognize Animal"}
+            {isRecognizing ? (
+              <span className="pulsing-text">Recognizing...</span>
+            ) : (
+              "Recognize Animal"
+            )}
           </Button>
           {recognitionResult && (
             <div className="w-full space-y-4">
