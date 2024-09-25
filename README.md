@@ -18,9 +18,9 @@ Supported animals please refer to [here](https://github.com/chochinlu/animal-ide
 
 4. **Image Showcase**: Here are examples of the application in use:
 
-<img src="https://github.com/chochinlu/animal-identifier/blob/main/images/docs/screenshot1.png" alt="Animal Identifier Screenshot 1" style="max-width: 300px; width: 100%;">
+<img src="https://github.com/chochinlu/animal-identifier/blob/main/images/docs/screenshot1.png" alt="Animal Identifier Screenshot 1" style="max-width: 300px;">
 
-<img src="https://github.com/chochinlu/animal-identifier/blob/main/images/docs/screenshot2.png" alt="Animal Identifier Screenshot 2" style="max-width: 300px; width: 100%;">
+<img src="https://github.com/chochinlu/animal-identifier/blob/main/images/docs/screenshot2.png" alt="Animal Identifier Screenshot 2" style="max-width: 300px;">
 
 
 
