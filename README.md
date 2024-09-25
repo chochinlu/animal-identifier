@@ -2,6 +2,8 @@
 
 Animal Identifier is a web application that allows users to upload images of animals and receive identification results using AI technology.
 
+Supported animals please refer to [here](https://github.com/chochinlu/animal-identifier-backend/blob/main/labels.py).
+
 ## Features
 
 1. **Image Upload**: Users can upload images of animals in JPEG or PNG format.
@@ -13,9 +15,13 @@ Animal Identifier is a web application that allows users to upload images of ani
    - A description of the animal
    - A warning if the animal is considered dangerous
 
-4. **User-Friendly Interface**: The application provides a simple and intuitive interface for easy use.
 
-5. **Real-time Feedback**: A loading animation is displayed during the recognition process to keep users informed.
+4. **Image Showcase**: Here are examples of the application in use:
+
+![Animal Identifier Screenshot 1](docs/screenshot1.png)
+
+![Animal Identifier Screenshot 2](docs/screenshot2.png)
+
 
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
